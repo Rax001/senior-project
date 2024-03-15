@@ -1,0 +1,14 @@
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Ryan Rampton",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^29.1.3"
+  }
+}

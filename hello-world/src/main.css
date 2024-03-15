@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    padding: 1.5rem;
+}
+
+#indexTitle {
+    color: blueviolet;
+}
+
+#aboutTitle {
+    color: red;
+}
+
+a {
+    color:black;
+}
+
+a:hover {
+    cursor: pointer;
+    color:green;
+}
+
+input {
+    border: none;
+    background-color: #dddddd;
+    border-radius: 0.5rem;
+    padding:5px;
+}
+
+#noteContent {
+    width: 300px;
+    height: 100px;
+    border: none;
+    background-color: #dddddd;
+    border-radius: 0.5rem;
+    padding: 5px;
+}
