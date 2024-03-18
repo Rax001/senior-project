@@ -1,0 +1,17 @@
+{
+  "name": "food-oracle",
+  "version": "1.0.0",
+  "description": "Diet Tracker",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Ryan Rampton",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^29.1.3"
+  },
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
