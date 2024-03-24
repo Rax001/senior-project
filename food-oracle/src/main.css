@@ -13,3 +13,18 @@ body {
 h1 {
     color: #22C3FF;
 }
+
+#queryInput {
+    width: 100%;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#inputLookUp {
+    width: 30%;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
