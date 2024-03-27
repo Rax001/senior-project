@@ -6,12 +6,55 @@
 }
 
 body {
-    background-color: #004C69;
-    padding: 1.5rem;
+    /* background-color: #004C69; */
+    background-color: #cdd9ed;
+    /* padding: 1.5rem; */
 }
 
-h1 {
+#titleBanner {
+    /* position: relative; */
+    background-color: #010101;
+    background-size: cover;
     color: #22C3FF;
+    font-size: larger;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+#logoContainer {
+    /* position: relative; */
+    left: 33%;
+    height: 8vh;
+    width: 8vw;
+}
+
+#brandLogo {
+    height: 8vh;
+    border-radius: 10px;
+}
+
+.logo {
+    position: absolute;
+}
+
+#closedEye {
+    height: 8vh;
+    transform: rotate(180deg);
+    z-index: 1;
+}
+
+#cookie {
+    height: 3vh;
+    z-index: 2;
+    top: 31%;
+    left: 23%;
+}
+
+#appTitle {
+    position: relative;
+    z-index: 1;
 }
 
 #queryInput {
@@ -27,4 +70,19 @@ h1 {
     padding: 5px;
     border: none;
     border-radius: 5px;
+    margin: 0 5px 0 0;
+}
+
+#queryButton {
+    padding: 5px;
+    margin: 0 0 0 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #010101;
+    color: #22c3ff;
+    font-weight: bold;
+}
+
+section {
+    color: #010101;
 }

@@ -8,10 +8,23 @@
     <link href="main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1 id="indexTitle">Welcome to Food Oracle!</h1>
+    <div id="titleBanner">
+        <div id="logoContainer">
+            <img id="brandLogo" src="images/food-oracle-logo.png">
+            <!-- <img class="logo" id="closedEye" src="images/eye-closed.png"> -->
+            <!-- <img class="logo" id="cookie" src="images/cookie-bite-solid.png">  -->
+        </div>
+        <div id="appTitle">
+            <h1 id="indexTitle">Food Oracle</h1>
+        </div>
+    </div>
     <div id="queryInput">
         <input id="inputLookUp" placeholder="Look-up food item...">
+        <button id="queryButton">Search</button>
     </div>
+    <section id="displayFromServer">
+
+    </section>
 
     <script src="script.js"></script>
 </body>
