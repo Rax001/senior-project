@@ -11,6 +11,15 @@ body {
     /* padding: 1.5rem; */
 }
 
+#logFoodWrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: start;
+    align-items: center;
+    height: 100vh;
+    
+}
+
 #titleBanner {
     /* position: relative; */
     background-color: #010101;
@@ -21,6 +30,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 10vh;
+    width: 100%;
+    padding: 10px 0;
 }
 
 #logoContainer {
@@ -57,8 +68,29 @@ body {
     z-index: 1;
 }
 
-#queryInput {
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #22C3FF;
     width: 100%;
+}
+
+a {
+    /* margin: 5px; */
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #010101;
+    transition: background-color 0.5s ease-out;
+}
+
+a:hover {
+    background-color: white;
+    /* border-radius: 5px; */
+}
+
+#queryInput {
+    width: 50%;
     margin: 10px;
     display: flex;
     justify-content: center;
@@ -70,19 +102,315 @@ body {
     padding: 5px;
     border: none;
     border-radius: 5px;
-    margin: 0 5px 0 0;
+    margin: 0 5px 0 5px;
 }
 
-#queryButton {
+button {
     padding: 5px;
-    margin: 0 0 0 5px;
+    margin: 0 5px 0 5px;
     border: none;
     border-radius: 5px;
     background-color: #010101;
     color: #22c3ff;
     font-weight: bold;
+    cursor:pointer
 }
 
 section {
+    /* display: none; */
     color: #010101;
+    height: 25vh;
+    width: 50vw;
+    background: #22c3ff;
+    margin: 5px;
+    border-radius: 7px;
+}
+
+#messageContainer {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 7px;
+}
+
+p {
+    color: red;
+    padding: 0 5px 0 0;
+}
+
+#loadingAnimation {
+    display: none;
+    width: 15px;
+}
+
+#displayMacroWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+#displayDayMacros {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgba(83,104,114,0.5);
+    border: 6px solid rgba(83,104,114,1.0);
+    border-radius: 10px;
+    height: 70%;
+    width: 40%;
+    min-width: 405px;
+}
+
+#caloriesDisplay {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 35%;
+    min-width: 180px;
+    height: fit-content;
+    min-height: fit-content;
+    font-size: larger;
+    text-align: center;
+    border: 2px solid #22C3FF;
+    border-radius: 6px;
+    padding: 5px 10px;
+}
+
+#totalCals {
+    background-color: white;
+    border-radius: 5px;
+    width: 40%;
+    padding: 10px 0px;
+}
+
+#dayMacrosContainer {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    width: 67%;
+    height: 33%;
+}
+
+#rowLabels {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 100%;
+}
+
+.macroDisplay {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 100%;
+}
+
+.logTotals {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    border-radius: 7px;
+}
+
+.logLabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dayTotalsContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(83,104,114,0.5);
+    border: 3px solid rgba(83,104,114,1.0);
+    border-radius: 7px;
+    height: 15%;
+    min-height: 85px;
+    width: 50%;
+    min-width: 410px;
+    margin: 10px;
+}
+
+.gridObject {
+    display: grid;
+    grid-template-rows: 1fr 0.5fr;
+    height: 70%;
+}
+
+#mongoDataWrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    padding: 0 0 5px 0;
+}
+
+#mongoDataWrapper input {
+    text-align: center;
+}
+
+#nameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.name-quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name-quantity input {
+    padding: 5px 0px;
+    margin: 5px;
+}
+
+#nameInput {
+    width: 67%;
+}
+
+#quantityInput {
+    width: 25%;
+}
+
+#mongoMacrosContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+}
+
+.logInputs {
+    width: 50%;
+    padding: 5px 2px;
+    margin: 0px 5px;
+    justify-self: center;
+}
+
+#dietLogFilter {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 10%;
+    width: 50%;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 7px;
+    background-color: rgba(83,104,114,1.0);
+}
+
+#dietLogFilter input {
+    text-align: center;
+    padding: 0 2px;
+}
+
+.filter-label {
+    font-size: 0.9rem;
+}
+
+#dietLogWrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#displayDietLog {
+    display: flex;
+    flex-flow: column nowrap;
+    min-height: fit-content;
+    max-height:100vh;
+    width: 50vw;
+    overflow-y: scroll;
+    background-color: rgba(83,104,114,0.5);
+    border-radius: 7px;
+    overflow-x: scroll;
+}
+
+#displayDietLog::-webkit-scrollbar {
+    display: none;
+}
+
+#displayDietLog input {
+    /* background-color: transparent; */
+}
+
+.data-member {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+}
+
+.cal-macros-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.cal-macros-box input {
+    width: 50%;
+    text-align: center;
+    justify-self: center;
+}
+
+.name-quantity-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+    width: 90%;
+}
+
+.name-quantity-box input {
+    text-align: center;
+}
+
+#dataDate {
+    font-size: 0.85rem;
+}
+
+.quantity-unit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dataName {
+    /* width: 100%; */
+    min-width: 50%;
+    max-width: 90%;
+    padding: 0 0 0 4px;
+}
+
+.dataQuantity {
+    width: 25%;
+}
+
+.data-label {
+    font-size: 0.75rem;
+    justify-self: center;
+    padding: 1px 0 0 0;
+}
+
+input {
+    border: none;
+    border-radius: 7px;
+}
+
+hr {
+    border: 1px solid black;
+    margin: 5px;
 }

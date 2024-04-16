@@ -16,14 +16,41 @@
             <h1 id="indexTitle">Food Oracle</h1>
         </div>
     </div>
-    <div id="queryInput">
-        <input id="inputLookUp" placeholder="Look-up food item...">
-        <button id="queryButton">Search</button>
+    <nav id="nav-bar">
+        <a href="index.html" id="homeLink">Day Overview</a>
+        <a href="dietLog.html" id="insertFoodLink">Log Food</a>
+    </nav>
+    <div id="displayMacroWrapper">
+        <main id="displayDayMacros">
+            <div id="caloriesDisplay">
+                <div id="caloriesLabel">Daily Total <br> Calories:</div>
+                <div id="totalCals"></div>    
+            </div>
+            <div id="dayMacrosContainer">
+                <div id="rowLabels">
+                    <div id="calLabel">Calories:</div>
+                    <div id="gramsLabel">Grams (g):</div>
+                </div>
+                <div class="macroDisplay">                
+                    <div id="carbCals">0</div>
+                    <div id="carbGrams">0</div>
+                    <div id="carbFooter">Carbohydrates</div>
+                </div>
+                <div class="macroDisplay">
+                    <div id="fatCals">0</div>
+                    <div id="fatGrams">0</div>
+                    <div id="fatFooter">Fats</div>
+                </div>
+                <div class="macroDisplay">
+                    <div id="proteinCals">0</div>
+                    <div id="proteinGrams">0</div>
+                    <div id="proteinFooter">Proteins</div>
+                </div>
+            </div>
+        </main>
     </div>
-    <section id="displayFromServer">
+    
 
-    </section>
-
-    <script src="script.js"></script>
+    <script src="homeScript.js" type="module"></script>
 </body>
 </html>

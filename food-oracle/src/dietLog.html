@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Oracle</title>
+    <link href="main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div id="logFoodWrapper"> 
+        <div id="titleBanner">
+            <div id="logoContainer">
+                <img id="brandLogo" src="images/food-oracle-logo.png">
+            </div>
+            <div id="appTitle">
+                <h1 id="indexTitle">Food Oracle</h1>
+            </div>
+        </div>
+        <nav id="nav-bar">
+            <a href="index.html" id="homeLink">Day Overview</a>
+            <a href="dietLog.html" id="insertFoodLink">Log Food</a>
+        </nav>
+        <div id="dayTotalsContainer">
+            <div class="gridObject">
+                <div id="logTotalCals" class="logTotals"></div>
+                <div class="logLabel">Calories</div>
+            </div>
+            <div class="gridObject">
+                <div id="carbGrams" class="logTotals"></div>
+                <div class="logLabel">Carbohydrate(g)</div>
+            </div>
+            <div class="gridObject">
+                <div id="fatGrams" class="logTotals"></div>
+                <div class="logLabel">Fat(g)</div>
+            </div>
+            <div class="gridObject">
+                <div id="proteinGrams" class="logTotals"></div>
+                <div class="logLabel">Protein(g)</div>
+            </div>
+        </div>
+        <div id="queryInput">
+            <button id="queryButton">Search</button>
+            <input id="inputLookUp" placeholder="Look-up food item...">
+            <button id="logFoodButton">Log Food</button>
+            <button id="manualButton">Manual</button>
+        </div>
+        <section id="mongoDataWrapper">
+            <div id="messageContainer">
+                <p>Error:</p>
+                <div id="userMessage"></div>
+                <div id="loadingAnimation"></div>
+            </div>
+            <div id="nameContainer">
+                <div class="name-quantity logInputs">
+                    <div>Food Name:</div>
+                    <input type="text" id="nameInput" readonly tabindex="-1">
+                </div>
+                <div class="name-quantity logInputs">
+                    <div>Amount:</div>
+                    <input type="text" id="quantityInput">
+                    <div>g</div>
+                </div>
+            </div>
+            <div id="mongoMacrosContainer">
+                <div class="gridObject">
+                    <input type="text" id="caloriesInput" class="logInputs" readonly tabindex="-1">
+                    <div class="logLabel">Calories</div>
+                </div>
+                <div class="gridObject">
+                    <input type="text" id="carbsInput" class="logInputs" readonly tabindex="-1">
+                    <div class="logLabel">Carbohydrate(g)</div>
+                </div>
+                <div class="gridObject">
+                    <input type="text" id="fatInput" class="logInputs" readonly tabindex="-1">
+                    <div class="logLabel">Fat(g)</div>
+                </div>
+                <div class="gridObject">
+                    <input type="text" id="proteinInput" class="logInputs" readonly tabindex="-1">
+                    <div class="logLabel">Protein(g)</div>
+                </div>
+            </div>
+        </section>
+        <div id="dietLogFilter">
+            <button id="todayDataButton">Today</button>
+            <div id="singleDateContainer">
+                <!-- <button id="selectDateButton">Select Day</button> -->
+                <div class="filter-label">Select Day:</div>
+                <input type="date" id="singleDayInput">
+            </div>
+            <div id="dateRangeContainer">
+                <!-- <button id="startDateButton">Backtrack</button> -->
+                <div class="filter-label">Start Date:</div>
+                <input type="date" id="startDateInput">
+            </div>
+            <button id="allDataButton">All Data</button>
+        </div>
+        <div id="dietLogWrapper">
+            <div id="displayDietLog">
+                <!-- Load in rows from the diet db -->
+            </div>
+        </div>
+    </div>
+
+    <script src="logScript.js" type="module"></script>
+</body>
+</html>
