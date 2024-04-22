@@ -191,6 +191,7 @@ function generateDietLog(food) {
     // console.log(food.name);
 
     let dataRow = document.createElement('div');
+    dataRow.id = 'dataRow'+ food.id;
     dataRow.className = 'data-member';
 
     let nameQuantityBox = document.createElement('div');
@@ -204,6 +205,7 @@ function generateDietLog(food) {
     let dataName = document.createElement('input');
     dataName.classList.add('nq-data', 'dataName');
     dataName.value = food.name;
+    dataName.readOnly = true;
     nameQuantityBox.appendChild(dataName);
 
     let dataQUContainer = document.createElement('div');
@@ -212,6 +214,7 @@ function generateDietLog(food) {
     let dataQuantity = document.createElement('input');
     dataQuantity.classList.add('nq-data', 'dataQuantity');
     dataQuantity.value = food.quantity;
+    dataQuantity.readOnly = true;
     dataQUContainer.appendChild(dataQuantity);
 
     let dataUnit = document.createElement('div');
@@ -219,10 +222,11 @@ function generateDietLog(food) {
     dataUnit.innerHTML = 'g';
     dataQUContainer.appendChild(dataUnit);
 
+    
     nameQuantityBox.appendChild(dataQUContainer);
     
     dataRow.appendChild(nameQuantityBox);
-    
+
     let calMacrosBox = document.createElement('div');
     calMacrosBox.className = 'cal-macros-box';
 
@@ -231,6 +235,7 @@ function generateDietLog(food) {
     let dataCalories = document.createElement('input');
     dataCalories.id = 'dataCalories';
     dataCalories.value = food.calories;
+    dataCalories.readOnly = true;
     calorieGrid.appendChild(dataCalories);
     let dataCalLabel = document.createElement('div');
     dataCalLabel.className = 'data-label';
@@ -243,6 +248,7 @@ function generateDietLog(food) {
     let dataCarbs = document.createElement('input');
     dataCarbs.id = 'dataCarbs';
     dataCarbs.value = food.carbohydrates;
+    dataCarbs.readOnly = true;
     carbGrid.appendChild(dataCarbs);
     let dataCarbLabel = document.createElement('div');
     dataCarbLabel.className = 'data-label';
@@ -255,6 +261,7 @@ function generateDietLog(food) {
     let dataFats = document.createElement('input');
     dataFats.id = 'dataFats';
     dataFats.value = food.fats;
+    dataFats.readOnly = true;
     fatGrid.appendChild(dataFats);
     let dataFatLabel = document.createElement('div');
     dataFatLabel.className = 'data-label';
@@ -267,6 +274,7 @@ function generateDietLog(food) {
     let dataProtein = document.createElement('input');
     dataProtein.id = 'dataProtein';
     dataProtein.value = food.proteins;
+    dataProtein.readOnly = true;
     proteinGrid.appendChild(dataProtein);
     let dataProteinLabel = document.createElement('div');
     dataProteinLabel.className = 'data-label';
@@ -280,6 +288,123 @@ function generateDietLog(food) {
     
     let hzLine = document.createElement('hr');
     dietLog.appendChild(hzLine);
+
+    let editButton = document.createElement('button');
+    editButton.innerHTML = 'Edit';
+    editButton.onclick = () => {
+        let buttons = document.querySelectorAll('.name-quantity-box button');
+
+        for (let button of buttons) {
+            if (button.innerHTML == 'Save' && button != editButton) {
+                return;
+            }
+        }
+
+        let goodInput = true;
+
+        if (editButton.innerHTML == 'Edit') {
+            editButton.innerHTML = 'Save';
+
+            protein100 = dataProtein.value * (100 / dataQuantity.value);
+            fat100 = dataFats.value * (100 / dataQuantity.value);
+            carbs100 = dataCarbs.value * (100 / dataQuantity.value); 
+            
+            dataName.readOnly = false;
+            dataQuantity.readOnly = false;
+            dataCalories.readOnly = false;
+            dataCarbs.readOnly = false;
+            dataFats.readOnly = false;
+            dataProtein.readOnly = false;
+
+            dataName.focus();
+        } else {
+            let target;
+            let dataInputs = dataRow.querySelectorAll('input');
+
+            for (let input of dataInputs) {
+                if (input.value.trim() == '') {
+                    goodInput = false;
+                    target = input;
+                }
+            }
+
+            if (goodInput) {
+                editButton.innerHTML = 'Edit';
+                
+                editFoodData(food.id, dataName.value, dataQuantity.value, dataCalories.value, dataCarbs.value, dataFats.value, dataProtein.value);
+
+                dataName.readOnly = true;
+                dataQuantity.readOnly = true;
+                dataCalories.readOnly = true;
+                dataCarbs.readOnly = true;
+                dataFats.readOnly = true;
+                dataProtein.readOnly = true;
+            } else {
+                target.focus();
+            }           
+        }
+    }
+    nameQuantityBox.appendChild(editButton);
+
+    dataQuantity.oninput = () => {
+        dataProtein.value = (dataQuantity.value * (protein100 / 100)).toFixed(1);
+        dataFats.value = (dataQuantity.value * (fat100 / 100)).toFixed(1);
+        dataCarbs.value = (dataQuantity.value * (carbs100 / 100)).toFixed(1);
+        dataCalories.value = ((dataCarbs.value * 4) + (dataFats.value * 9) + (dataProtein.value * 4)).toFixed(1);
+    }
+
+    let deleteButton = document.createElement('button');
+    deleteButton.innerHTML = 'Delete';
+    deleteButton.onclick = () => {
+        if (confirm("Are you sure you want to delete this item?")) {
+            deleteFoodData(food.id);
+        }
+    }
+    calMacrosBox.appendChild(deleteButton);
+}
+
+function editFoodData(id, name, quantity, calories, carbs, fats, protein) {
+    fetch(`http:127.0.0.1:8080/dietLog/edit`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: id,
+            name: name,
+            quantity: quantity,
+            calories: calories,
+            carbohydrates: carbs,
+            fats: fats,
+            proteins: protein
+        })
+    })
+    .then(function(response) {
+        if (!response.ok) {
+            throw new Error('Response was not ok');
+        } else {
+            queryEntireLog();
+        }
+    })
+}
+
+function deleteFoodData(food_id) {
+    fetch(`http://127.0.0.1:8080/dietLog/delete`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': "application/json"
+        }, 
+        body: JSON.stringify({
+            id: food_id
+        })
+    })
+    .then(function(response) {
+        if (!response.ok) {
+            throw new Error('Response was not ok');
+        } else {
+            queryEntireLog();
+        }
+    })
 }
 
 let todayButton = document.getElementById('todayDataButton');

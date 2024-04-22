@@ -110,8 +110,8 @@ app.post('/dietLog', (req,res) => {
     const {name, quantity, unit, calories, carbohydrates, fats, proteins, date} = req.body;
 
     const query = `
-    INSERT INTO diet (name, quantity, unit, calories, carbohydrates, fats, proteins, date)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+        INSERT INTO diet (name, quantity, unit, calories, carbohydrates, fats, proteins, date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
     db.run(query, [name, quantity, unit, calories, carbohydrates, fats, proteins, date], function(err) {
         if (err) {
@@ -121,6 +121,41 @@ app.post('/dietLog', (req,res) => {
         }
         console.log(`A row has been inserted with rowid ${this.lastID}`);
         res.status(201).send('Data inserted successfully');
+    })
+})
+
+app.put('/dietLog/edit', (req, res) => {
+    const {id, name, quantity, calories, carbohydrates, fats, proteins} = req.body;
+
+    const updateQuery = `
+        UPDATE diet
+        SET name = ?, quantity = ?, calories = ?, carbohydrates = ?, fats = ?, proteins = ?
+        WHERE id = ?`;
+    
+    db.run(updateQuery, [name, quantity, calories, carbohydrates, fats, proteins, id], function(err) {
+        if (err) {
+            console.log(err.message);
+            res.status(500).send("Internal Server Error");
+            return;
+        }
+        
+        res.status(200).send("Diet log updated successfully");
+    })
+})
+
+app.delete('/dietLog/delete', (req, res) => {
+    const {id} = req.body;
+
+    const deleteQuery = `
+    DELETE FROM diet WHERE id = ?`;
+
+    db.run(deleteQuery, [id], function(err) {
+        if (err) {
+            console.log(err.message);
+            res.status(500).send("Internal Server Error");
+            return;
+        }
+        res.status(200).send("Deleted");
     })
 })
 
