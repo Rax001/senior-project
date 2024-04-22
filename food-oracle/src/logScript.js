@@ -284,7 +284,7 @@ function generateDietLog(food) {
 
 let todayButton = document.getElementById('todayDataButton');
 todayButton.onclick = () => {
-    singleDayInput.value = '';
+    singleDayInput.value = currentDate;
     startDateInput.value = '';
     querySingleDayDiet(currentDate);
 }
