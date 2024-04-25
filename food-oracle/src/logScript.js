@@ -2,8 +2,27 @@ console.log(`Now on Food Logging page`);
 
 let currentDate = new Date().toLocaleDateString('en-CA');
 
-queryDayTotals();
-queryEntireLog();
+let todayIsEmpty = false;
+
+let calorieDayTotal = document.getElementById('logTotalCals');
+
+let carbDayTotal = document.getElementById('carbGrams');
+let fatDayTotal = document.getElementById('fatGrams');
+let proteinDayTotal = document.getElementById('proteinGrams');
+
+queryDayTotals().then(function() {
+    console.log('todayIsEmpty:', todayIsEmpty);
+    if (todayIsEmpty) {
+        let today = new Date();
+        today.setDate(today.getDate() - 7);
+        let weekAgo = today.toLocaleDateString('en-CA');
+        console.log('weekAgo=',weekAgo);
+        queryDateRange(weekAgo);
+    } else {
+        querySingleDayDiet(currentDate);
+    }
+});
+// queryEntireLog();
 
 const queryInput = document.getElementById('inputLookUp');
 const queryButton = document.getElementById('queryButton');
@@ -18,7 +37,6 @@ let loadAnimation = document.getElementById('loadingAnimation');
 
 const manualButton = document.getElementById('manualButton');
 manualButton.onclick = () => {
-    console.log('manual clicked');
     toggleManual();
 }
 
@@ -50,7 +68,6 @@ function queryDB(foodName) {
         return response.json();
     })
     .then(function(data) {
-        // console.log(data);
         msgContainer.style.display = 'none';
         loadAnimation.style.display = 'none';
         toUserMsg.innerHTML = '';
@@ -104,26 +121,32 @@ quantityInput.addEventListener('input',function() {
 })
 
 
-let calorieDayTotal = document.getElementById('logTotalCals');
-
-let carbDayTotal = document.getElementById('carbGrams');
-let fatDayTotal = document.getElementById('fatGrams');
-let proteinDayTotal = document.getElementById('proteinGrams');
-
 function queryDayTotals() {
-    fetch('http://127.0.0.1:8080/dietLog/dayTotals')
-    .then(function(response) {
-        if (!response.ok) {
-            throw new Error('Response was not ok');
-        }
-        return response.json();
-    })
-    .then (function(data) {
-        // console.log(data[0]);
-        calorieDayTotal.innerHTML = (data[0].Calories).toFixed(1);
-        carbDayTotal.innerHTML = (data[0].Carbs).toFixed(1);
-        fatDayTotal.innerHTML = (data[0].Fats).toFixed(1);
-        proteinDayTotal.innerHTML = (data[0].Proteins).toFixed(1);
+    return new Promise((resolve, reject) => {
+
+        fetch('http://127.0.0.1:8080/dietLog/dayTotals')
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Response was not ok');
+            }
+            return response.json();
+        })
+        .then (function(data) {
+            if (data.length == 0){
+                todayIsEmpty = true;
+                calorieDayTotal.innerHTML = 0.0;
+                carbDayTotal.innerHTML = 0.0;
+                fatDayTotal.innerHTML = 0.0;
+                proteinDayTotal.innerHTML = 0.0;
+            } else {
+                calorieDayTotal.innerHTML = (data[0].Calories).toFixed(1);
+                carbDayTotal.innerHTML = (data[0].Carbs).toFixed(1);
+                fatDayTotal.innerHTML = (data[0].Fats).toFixed(1);
+                proteinDayTotal.innerHTML = (data[0].Proteins).toFixed(1);
+            }
+            resolve();
+        })
+        .catch(error => reject(error));
     })
 }
 
@@ -142,6 +165,10 @@ logFoodButton.onclick = () => {
         addToDietLog(nameInput.value, quantityInput.value, caloriesInput.value, carbsInput.value, fatInput.value, proteinInput.value);
         queryDayTotals();
         querySingleDayDiet(currentDate);
+        queryInput.value = '';
+        for (let input of inputs) {
+            input.value = '';
+        }
     } else {
         msgStatus.innerHTML = 'Error: ';
         msgStatus.style.color = 'red';
@@ -158,7 +185,6 @@ logFoodButton.onclick = () => {
 function addToDietLog(name, amount, calories, carbs, fats, proteins) {
     console.log("recording food...")
     const units = 'g';
-    // const currentDate = new Date().toLocaleDateString('en-CA');
     fetch('http://127.0.0.1:8080/dietLog', {
         method: 'POST',
         headers: {
@@ -179,17 +205,13 @@ function addToDietLog(name, amount, calories, carbs, fats, proteins) {
         if (!response.ok) {
             throw new Error('Response was not ok');
         }
-    })
-    .then(function(data) {
-        console.log(data);
+        console.log(response.status);
     })
 }
 
 const dietLog = document.getElementById('displayDietLog');
 
 function generateDietLog(food) {
-    // console.log(food.name);
-
     let dataRow = document.createElement('div');
     dataRow.id = 'dataRow'+ food.id;
     dataRow.className = 'data-member';
@@ -339,6 +361,7 @@ function generateDietLog(food) {
                 dataCarbs.readOnly = true;
                 dataFats.readOnly = true;
                 dataProtein.readOnly = true;
+                queryDayTotals();
             } else {
                 target.focus();
             }           
@@ -402,6 +425,7 @@ function deleteFoodData(food_id) {
         if (!response.ok) {
             throw new Error('Response was not ok');
         } else {
+            queryDayTotals();
             queryEntireLog();
         }
     })
