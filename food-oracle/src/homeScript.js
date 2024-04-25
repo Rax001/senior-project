@@ -48,35 +48,3 @@ function queryEntireLog() {
     })
 }
 
-// fetch('http://binary141.com:8080/hotcheetos')
-//     .then(function(response) {
-//         if (!response.ok) {
-//             throw new Error('Response was not ok');
-//         }
-//         return response.text();
-//     })
-//     .then (function(data) {
-//         console.log(data);
-//         mongoData.innerHTML = data;
-//     })
-
-
-// fetch('https://world.openfoodfacts.net/api/v2/product/066022003283?fields=product_name,nutriments')
-//     .then(function(response) {
-//         if (!response.ok) {
-//             throw new Error('Response was not ok');
-//         }
-//         return response.text();
-//     })
-//     .then (function(data) {
-//         console.log(data);
-//         let mongoData = document.getElementById('displayFromServer');
-//         mongoData.innerHTML = data;
-//     })
-
-
-    // https://world.openfoodfacts.net/api/v2/product/028000772123?fields=product_name,nutriments
-
-    
-
-    // https://world.openfoodfacts.org/cgi/search.pl?search_terms=hot+cheetos&search_simple=1&action=process
